@@ -50,23 +50,7 @@ for SNR=-10:2:10
        X=X+w;
         
      
-        ss= multi_sensor_source_separation_ridge_tracking_m(X, n_sources, delta,N_sensors);
-        %toc
-        for iii=1:n_sources
-            for jjj=1:N_sensors
-                a(jjj,:)=ss(jjj,iii,:);
-            end
-            theta1=-90:1:90;
-            
-            p=TMMUSIC(cov(a'), 2, N_sensors, 1, 1, theta1');
-            [x,y]=max(p);
-            y1(iii)=y;
-        end
-        
-        y1=y1-90;
-        clear a;
-        clear ss;
-        mmssee_ridge_detection_tracking(ii)=mean((sort(y1/10)-sort(theta9/10)).^2);
+      
 
         %tic
         [IFF,ss] = Multi_Sensor_FAST_IF(X,N_sensors,65, n_sources, 2,100,0,0);
@@ -89,53 +73,14 @@ for SNR=-10:2:10
         mmssee_FASTIF(ii)=mean((sort(y1/10)-sort(theta9/10)).^2);
         
         
-    %    [ss,IFF] = multi_sensor_source_separation_spatial_diversity_post_proc(X, N_C, 3,N_sensors);
-        %figure; plot(IFF');
-        
-     %   for iii=1:n_sources
-      %      for jjj=1:N_sensors
-       %         a(jjj,:)=ss(jjj,iii,:);
-        %    end
-         %   theta1=-90:1:90;
-            
-          %  p=TMMUSIC(cov(a'), 2, N_sensors, 1, 1, theta1');
-           % [x,y]=max(p);
-           % y1(iii)=y;
-        %end
-        
         %y1=y1-90;
         
-        %mmssee_post_proc(ii)=mean((sort(y1/10)-sort(theta9/10)).^2);
-        %tic
-        %original code commented
-        %[ss,IF_out] = multi_sensor_source_separation_spatial_TF_direction(X, n_sources, 3,N_sensors);
-        [IFF,ss] = Multi_Sensor_FAST_IF(X,N_sensors,65, n_sources, 2,100,0,0);
-
-        %toc
-        for iii=1:n_sources
-            for jjj=1:N_sensors
-                a(jjj,:)=ss(jjj,iii,:);
-            end
-            theta1=-90:1:90;
-            
-            p=TMMUSIC(cov(a'), 2, N_sensors, 1, 1, theta1');
-            [x,y]=max(p);
-            y1(iii)=y;
-        end
-        theta1=theta9*180/pi;
-        y1=y1-90;
-        mmssee_sadtfd(ii)=mean((sort(y1/10)-sort(theta9/10)).^2);
-%         
         
-        %tic
-        
-
     end
     index=index+1;
     %mean(mmssee)
     snr_mse_fastIF(index)=mean(mmssee_FASTIF)
-    snr_mse_sadtfd(index)=mean(mmssee_sadtfd)
-    snr_mse_ridge_tracking(index)=mean(mmssee_ridge_detection_tracking)
+    
 end
 
 %SNR=-10:2:0;
@@ -143,17 +88,15 @@ SNR=-10:2:10;
 %SNR=0:2:10;
 % FROM SIMULATION DONE in "Novel direction of arrival estimation using
 % spatial adaptive"
-plot(SNR,10*(log10(snr_mse_sadtfd)),'--md','linewidth',2);
-hold on;
-plot(SNR,10*(log10(snr_mse_fastIF)),'r','linewidth',3);
-hold on;
 
 %plot(SNR,10*(log10(snr_mse_post_proc)),'y','linewidth',2);
 %hold on;
-plot(SNR,10*(log10(snr_mse_ridge_tracking)),'b:','linewidth',3);
+openfig('DOA_MSE_under_Determined_-10dB_to_10dB')
+hold on;
+plot(SNR,10*(log10(snr_mse_fastIF)),'r','linewidth',3);
 
-xlabel('Signal to Noise Ratio');
-ylabel('Mean Square Error (dB)');
-legend('SADTFD-Viterbi based DOA estimation', 'The Proposed Method','DOA based on IF estimation using ridge tracking');
+%xlabel('Signal to Noise Ratio');
+%ylabel('Mean Square Error (dB)');
+%legend('SADTFD-Viterbi based DOA estimation', 'The Proposed Method','DOA based on IF estimation using ridge tracking');
 
 %legend('The Proposed Method','DOA based on IF estimation using ridge tracking');

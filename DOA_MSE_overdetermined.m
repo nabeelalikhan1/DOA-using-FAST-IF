@@ -32,7 +32,7 @@ s_orig=s;
         theta = [-12,12]*pi/180;   % sensor separation angles in radians
 %        theta = [-12,0,12]*pi/180;   % sensor separation angles in radians
        theta = [-5,5]*pi/180;   % sensor separation angles in radians
-LL=100/2;
+LL=100;
 index=0;
 delta=2;
 for SNR=-10:2:10
@@ -91,24 +91,7 @@ for SNR=-10:2:10
         mmssee_FASTIF(ii)=mean((sort(y1/10)-sort(theta9/10)).^2);
         
         
-    %    [ss,IFF] = multi_sensor_source_separation_spatial_diversity_post_proc(X, N_C, 3,N_sensors);
-        %figure; plot(IFF');
-        
-     %   for iii=1:n_sources
-      %      for jjj=1:N_sensors
-       %         a(jjj,:)=ss(jjj,iii,:);
-        %    end
-         %   theta1=-90:1:90;
-            
-          %  p=TMMUSIC(cov(a'), 2, N_sensors, 1, 1, theta1');
-           % [x,y]=max(p);
-           % y1(iii)=y;
-        %end
-        
-        %y1=y1-90;
-        
-        %mmssee_post_proc(ii)=mean((sort(y1/10)-sort(theta9/10)).^2);
-        %tic
+        %original code commented
         %[ss,IF_out] = multi_sensor_source_separation_spatial_TF_direction(X, n_sources, 3,N_sensors);
                 [IFF,ss] = Multi_Sensor_FAST_IF(X,N_sensors,65, n_sources, 2,100,0,0);
 
@@ -188,6 +171,7 @@ hold on;
 %hold on;
 plot(SNR,10*(log10(snr_mse_ridge_tracking)),'b:','linewidth',3);
 
+openfig('DOA_MSE_over_determined -10 db to 10 db.fig')
 xlabel('Signal to Noise Ratio');
 ylabel('Mean Square Error (dB)');
 legend('Adaptive Spatial TFDs','The FAST IF','Time-frequency Music','DOA based on IF estimation using ridge tracking');
