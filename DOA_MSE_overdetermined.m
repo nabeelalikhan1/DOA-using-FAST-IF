@@ -29,7 +29,7 @@ s_orig=s;
 
 % set mixing matrix A
        theta = [-5,5]*pi/180;   % sensor separation angles in radians
-LL=2;
+LL=100;
 index=0;
 delta=2;
 for SNR=-10:2:10
@@ -168,7 +168,7 @@ hold on;
 %hold on;
 plot(SNR,10*(log10(snr_mse_ridge_tracking)),'b:','linewidth',3);
 
-openfig('DOA_MSE_over_determined -10 db to 10 db.fig')
+%openfig('DOA_MSE_over_determined -10 db to 10 db.fig')
 xlabel('Signal to Noise Ratio');
 ylabel('Mean Square Error (dB)');
 legend('Adaptive Spatial TFDs','The FAST IF','Time-frequency Music','DOA based on IF estimation using ridge tracking');

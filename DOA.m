@@ -92,13 +92,10 @@ xlabel('DOA Estimation (degrees)');
 ylabel('Spatial Spectrum');
 title('FAST-IF based method');
 
- 
-[ss,IFF] = multi_sensor_source_separation(X, N_C, 3,N_sensors);
+ [ss] =multi_sensor_source_separation_ridge_tracking_m(X, n_sources, 3,N_sensors);
+%[ss,IFF] = multi_sensor_source_separation(X, N_C, 3,N_sensors);
 %
-figure; plot(IFF');
-  hold on; plot(IF_O','r')
- xlabel('time')
- ylabel('frequency');
+
 for iii=1:n_sources
     for jjj=1:N_sensors
         a(jjj,:)=ss(jjj,iii,:);
@@ -123,34 +120,7 @@ title('Viterbi Algorithm based on direction of ridges');
 
 
 % IF estimation
-[ss,IFF] = multi_sensor_source_separation_spatial_diversity(X, N_C, 3,N_sensors);
-figure; plot(IFF');
-hold on; plot(IF_O','r:')
-xlabel('Time (s)')
-ylabel('Frequency (Hz)')
-title('Estimated IF vs Original IF using CKD');
-figure;
-for iii=1:n_sources
-    for jjj=1:N_sensors
-        a(jjj,:)=ss(jjj,iii,:);
-    end
-    theta1=-90:1:90;
-    
-    p=TMMUSIC(cov(a'), 2, N_sensors, 1, 1, theta1');
-    [x,y]=max(p);
-    % y1(iii)=y;
-    P(iii,:)=p;
-    % p=music((a), 1, N_sensors, 1, 1, theta1');
-    % P(iii,:)=p;
-end
 
-plot(theta1,P')
-aa=zeros(1,length(theta1));
-aa(theta9+91)=1;
-hold on; stem(theta1,aa)
-xlabel('DOA Estimation (degrees)');
-ylabel('Spatial Spectrum');
-title('CKD based DOA estimation');
 
 
 
@@ -181,32 +151,7 @@ ylabel('Spatial Spectrum');
 title('ADTFD based DOA estimation using Spatial TFD');
 
 
-[ss,IFF] = multi_sensor_source_separation_spatial_diversity_post_proc(X, N_C, 3,N_sensors);
-figure; plot(IFF');
-hold on; plot(IF_O','r:')
-xlabel('Time (s)')
-ylabel('Frequency (Hz)')
-title('Estimated IF vs Original IF using Spatial Adaptive TFD');
 
-figure;
-for iii=1:n_sources
-    for jjj=1:N_sensors
-        a(jjj,:)=ss(jjj,iii,:);
-    end
-    theta1=-90:1:90;
-    
-    p=TMMUSIC(cov(a'), 2, N_sensors, 1, 1, theta1');
-    [x,y]=max(p);
-    P(iii,:)=p;
-end
-
-plot(theta1,P')
-aa=zeros(1,length(theta1));
-aa(theta9+91)=1;
-hold on; stem(theta1,aa)
-xlabel('DOA Estimation (degrees)');
-ylabel('Spatial Spectrum');
-title('SADTFD based DOA estimation');
 
 %%DOA estimation
 D   = mtfd(X, 'ckd',1, 0.05, 0.05, length(X));
