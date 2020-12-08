@@ -4,9 +4,7 @@ N_sensors=3;
 n=0:127;
 
 %addpath('D:\D\win64_bin\win64_bin');
-addpath('D:\tfsa_5-5\windows\win64_bin');
-addpath('E:\Published Papers\DOA estimation of intersecting components 2018\Matlab code');
-addpath('E:\Published Papers\DOA ESTIMATION VITERBI\Multi-sensor IF estimation code');
+%addpath('D:\tfsa_5-5\windows\win64_bin');
 
 %crossing componentsi8
 

@@ -5,10 +5,7 @@ n=0:127;
 
 %addpath('D:\D\win64_bin\win64_bin');
 addpath('D:\tfsa_5-5\windows\win64_bin');
-addpath('E:\Published Papers\DOA estimation of intersecting components 2018\Matlab code');
-addpath('E:\Published Papers\DOA ESTIMATION VITERBI\Multi-sensor IF estimation code');
 
-%crossing componentsi8
 
 s1=exp(2*pi*1i*(0.05*n+0.45*n.^3/(128*128*3)));
 s2=exp(2*pi*1i*(0.45*n-0.45*n.^3/(128*128*3)));

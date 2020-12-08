@@ -4,7 +4,7 @@ N_sensors=2;
 n=0:127;
 
 %addpath('D:\D\win64_bin\win64_bin');
-addpath('D:\tfsa_5-5\windows\win64_bin');
+%addpath('D:\tfsa_5-5\windows\win64_bin');
 %addpath('E:\Published Papers\DOA estimation of intersecting components 2018\Matlab code');
 %addpath('E:\Published Papers\DOA ESTIMATION VITERBI\Multi-sensor IF estimation code');
 
@@ -26,7 +26,6 @@ s_orig=s;
 
 % set mixing matrix A
 %theta = [15,30,50]*pi/180;   % sensor separation angles in radians
-        theta = [-12,12]*pi/180;   % sensor separation angles in radians
 %        theta = [-12,0,12]*pi/180;   % sensor separation angles in radians
        theta = [-5,5]*pi/180;   % sensor separation angles in radians
 LL=200/2;
